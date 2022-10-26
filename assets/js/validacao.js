@@ -1,8 +1,14 @@
-const dataNascimento = document.querySelector('#nascimento');
+export function valida(input) {
+    const tipoDeInput = input.dataset.tipo;
 
-dataNascimento.addEventListener('blur', (evento) => {
-    validacaoDataNascimento(evento.target);
-});
+    if(validadores[tipoDeInput]) {
+        validadores[tipo](input)
+    }
+}
+
+const validadores = {
+    dataNascimento:input => validacaoDataNascimento(input)
+}
 
 function validacaoDataNascimento(input) {
     const dataRecebida = new Date(input.value);
@@ -10,10 +16,11 @@ function validacaoDataNascimento(input) {
 
     if(!maiorQue18(dataRecebida)) {
         mensagem = 'Você deve ser maior que 18 anos para se cadastrar.'
-    };
-        input.setCustomValidity(mensagem);
+    }
+
+    input.setCustomValidity(mensagem);
     
-};
+}
 
 function maiorQue18(data) {
     const dataAtual = new Date();
